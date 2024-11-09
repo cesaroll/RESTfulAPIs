@@ -27,5 +27,13 @@ public static class MovieMapper
   {
     Items = movies.Select(movie => movie.MapToMovieResponse())
   };
+
+  public static Movie MapToMovie(this UpdateMovieRequest request, Guid id) => new()
+  {
+    Id = id,
+    Title = request.Title,
+    YearOfRelease = request.YearOfRelease,
+    Genres = request.Genres.ToList()
+  };
    
 }
