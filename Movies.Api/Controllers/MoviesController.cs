@@ -27,7 +27,7 @@ public class MoviesController : ControllerBase
 
     var movieResponse = movie.MapToMovieResponse(); 
 
-    return Created($"{ApiEndpoints.Movies.Create }/{movieResponse.Id}", movieResponse);
+    return CreatedAtAction(nameof(Get), new { id = movieResponse.Id }, movieResponse);
   }
 
   [HttpGet(ApiEndpoints.Movies.Get)]
