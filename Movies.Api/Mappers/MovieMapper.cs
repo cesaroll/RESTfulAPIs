@@ -22,5 +22,10 @@ public static class MovieMapper
     YearOfRelease = movie.YearOfRelease,
     Genres = movie.Genres
   };
+
+  public static MoviesResponse MapToMoviesResponse(this IEnumerable<Movie> movies) => new()
+  {
+    Items = movies.Select(movie => movie.MapToMovieResponse())
+  };
    
 }
