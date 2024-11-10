@@ -1,6 +1,8 @@
 using Movies.App;
+using Movies.Db.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
 builder.Services.AddControllers();
 
@@ -11,18 +13,22 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
 
+builder.Services.AddDatabase(() => config.GetConnectionString("Movies")!);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+await app.Services.InitializeDbAsync();
 
 app.UseEndpoints(endpoints =>
 {

@@ -1,0 +1,25 @@
+services:
+
+  postgresql:
+    container_name: postgresql
+    hostname: postgresql
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: Password123
+      POSTGRES_DB: movies
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  app-network:
+    driver: bridge

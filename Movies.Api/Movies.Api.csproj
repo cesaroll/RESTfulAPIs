@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Movies.App\Movies.App.csproj" />
     <ProjectReference Include="..\Movies.Contracts\Movies.Contracts.csproj" />
+    <ProjectReference Include="..\Movies.Db\Movies.Db.csproj" />
   </ItemGroup>
 
 </Project>
