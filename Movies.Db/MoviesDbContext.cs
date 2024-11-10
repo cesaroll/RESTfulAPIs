@@ -9,15 +9,15 @@ public class MoviesDbContext : DbContext
   {
   }
 
-  public DbSet<Movie> Movies { get; set; }
-  public DbSet<Genre> Genres { get; set; }
+  public DbSet<MovieEntity> Movies { get; set; }
+  public DbSet<GenreEntity> Genres { get; set; }
 
   override protected void OnModelCreating(ModelBuilder modelBuilder)
   {
-    modelBuilder.Entity<Genre>()
+    modelBuilder.Entity<GenreEntity>()
       .HasKey(e => new { e.MovieId, e.Name });
     
-    modelBuilder.Entity<Genre>()
+    modelBuilder.Entity<GenreEntity>()
       .HasOne(e => e.Movie)
       .WithMany(e => e.Genres)
       .HasForeignKey(e => e.MovieId)

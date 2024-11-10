@@ -1,16 +1,18 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Movies.Db.Entities;
 
-public class Genre
+[Table("Genres")]
+public class GenreEntity
 {
     [Required]
     public Guid MovieId { get; set; }
 
     [Required]
     [MaxLength(50)]
-    public required string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Required]
-    public required Movie Movie { get; set; }
+    public MovieEntity Movie { get; set; }
 }

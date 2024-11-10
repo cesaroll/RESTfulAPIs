@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movies.Db.Migrations
 {
     [DbContext(typeof(MoviesDbContext))]
-    [Migration("20241110090015_CreateMoviesAndGenre")]
+    [Migration("20241110100042_CreateMoviesAndGenre")]
     partial class CreateMoviesAndGenre
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace Movies.Db.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Movies.Db.Entities.Genre", b =>
+            modelBuilder.Entity("Movies.Db.Entities.GenreEntity", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uuid");
@@ -39,9 +39,9 @@ namespace Movies.Db.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("Movies.Db.Entities.Movie", b =>
+            modelBuilder.Entity("Movies.Db.Entities.MovieEntity", b =>
                 {
-                    b.Property<Guid>("MovieId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -58,14 +58,14 @@ namespace Movies.Db.Migrations
                     b.Property<int>("YearOfRelease")
                         .HasColumnType("integer");
 
-                    b.HasKey("MovieId");
+                    b.HasKey("Id");
 
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("Movies.Db.Entities.Genre", b =>
+            modelBuilder.Entity("Movies.Db.Entities.GenreEntity", b =>
                 {
-                    b.HasOne("Movies.Db.Entities.Movie", "Movie")
+                    b.HasOne("Movies.Db.Entities.MovieEntity", "Movie")
                         .WithMany("Genres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -74,7 +74,7 @@ namespace Movies.Db.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Movies.Db.Entities.Movie", b =>
+            modelBuilder.Entity("Movies.Db.Entities.MovieEntity", b =>
                 {
                     b.Navigation("Genres");
                 });
