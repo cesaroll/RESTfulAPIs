@@ -1,4 +1,5 @@
-using Movies.App;
+using Microsoft.AspNetCore.Http.Features;
+using Movies.App.Extensions;
 using Movies.Db.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 
 builder.Services.AddDatabase(() => config.GetConnectionString("Movies")!);
+
+builder.Services.AddProblemDetails(options =>
+{
+    options.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+        
+        context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+
+        var activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
+        context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
+    };
+});
 
 var app = builder.Build();
 

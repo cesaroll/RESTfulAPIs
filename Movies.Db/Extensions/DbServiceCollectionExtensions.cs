@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Movies.Db.Extensions;
 
-public static class MoviesDbExtensions
+public static class DbServiceCollectionExtensions
 {
   public static IServiceCollection AddDatabase(this IServiceCollection services, Func<string> getConnection)
   {

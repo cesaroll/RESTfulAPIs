@@ -23,34 +23,12 @@ public class MoviesController : ControllerBase
   {
     var movie = request.MapToMovie();
 
-    await _moviesService.CreateAsync(movie);
+    var result = await _moviesService.CreateAsync(movie);
 
-    var movieResponse = movie.MapToMovieResponse(); 
-
-    return CreatedAtAction(nameof(Get), new { idOrSlug = movieResponse.Id }, movieResponse);
-  }
-
-  [HttpGet(ApiEndpoints.Movies.Get)]
-  public async Task<IActionResult> Get([FromRoute] string idOrSlug)
-  {
-    var movie = Guid.TryParse(idOrSlug, out var id)
-      ? await _moviesService.GetByIdAsync(id)
-      : await _moviesService.GetBySlugAsync(idOrSlug);
-
-    return movie.Match<IActionResult>(
-      movie => Ok(movie.MapToMovieResponse()),
-      () => NotFound()
+    return result.Match<IActionResult>(
+      success => CreatedAtAction(nameof(Get), new { idOrSlug = movie.Id }, movie.MapToMovieResponse()),
+      error => BadRequest(error)
     );
-  }
-
-  [HttpGet(ApiEndpoints.Movies.GetAll)]
-  public async Task<IActionResult> GetAll()
-  {
-    var movies = await _moviesService.GetAllAsync();
-
-    var moviesResponse = movies.MapToMoviesResponse();
-
-    return Ok(moviesResponse);
   }
 
   [HttpPut(ApiEndpoints.Movies.Update)]
@@ -58,27 +36,50 @@ public class MoviesController : ControllerBase
   {
     var movie = request.MapToMovie(id);
 
-    var updated = await _moviesService.UpdateAsync(movie);
+    var result = await _moviesService.UpdateAsync(movie);
 
-    if (!updated)
-    {
-      return NotFound();
-    }
+    return result.Match<IActionResult>(
+      success => success? Ok(movie.MapToMovieResponse()) : NotFound(),
+      error => BadRequest(error)
+    );  
+  }
 
-    return Ok(movie.MapToMovieResponse());
+  [HttpGet(ApiEndpoints.Movies.Get)]
+  public async Task<IActionResult> Get([FromRoute] string idOrSlug)
+  {
+    var result = Guid.TryParse(idOrSlug, out var id)
+      ? await _moviesService.GetByIdAsync(id)
+      : await _moviesService.GetBySlugAsync(idOrSlug);
 
+    return result.Match<IActionResult>(
+      movie => movie.Match<IActionResult>(
+          some => Ok(some.MapToMovieResponse()),
+          NotFound()
+        )
+      ,
+      error => BadRequest(error)
+    );
+  }
+
+  [HttpGet(ApiEndpoints.Movies.GetAll)]
+  public async Task<IActionResult> GetAll()
+  {
+    var result = await _moviesService.GetAllAsync();
+
+    return result.Match<IActionResult>(
+      moviesList => Ok(moviesList.Movies.MapToMoviesResponse()),
+      error => BadRequest(error)
+    );
   }
 
   [HttpDelete(ApiEndpoints.Movies.Delete)]
   public async Task<IActionResult> Delete([FromRoute]Guid id)
   {
-    var deleted = await _moviesService.DeleteByIdAsync(id);
+    var result = await _moviesService.DeleteByIdAsync(id);
 
-    if (!deleted)
-    {
-      return NotFound();
-    }
-
-    return Ok();
+    return result.Match<IActionResult>(
+      success => success? Ok() : NotFound(),
+      error => BadRequest(error)
+    );
   }
 }
