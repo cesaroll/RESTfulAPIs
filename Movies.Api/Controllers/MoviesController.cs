@@ -1,13 +1,13 @@
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Api.Mappers;
-using Movies.App.Models;
 using Movies.App.Services;
 using Movies.Contracts.Requests;
-using Movies.Contracts.Responses;
 
 namespace Movies.Api.Controllers;
 
+[Authorize]
 [ApiController]
 public class MoviesController : ControllerBase
 {
@@ -51,6 +51,7 @@ public class MoviesController : ControllerBase
     );  
   }
 
+  [AllowAnonymous]
   [HttpGet(ApiEndpoints.Movies.Get)]
   public async Task<IActionResult> Get(
     [FromRoute] string idOrSlug,
@@ -71,6 +72,7 @@ public class MoviesController : ControllerBase
     );
   }
 
+  [AllowAnonymous]
   [HttpGet(ApiEndpoints.Movies.GetAll)]
   public async Task<IActionResult> GetAll(CancellationToken token)
   {
