@@ -22,6 +22,6 @@ public class MovieEntity
     public int YearOfRelease { get; set; }
 
     [Required]
-    public List<GenreEntity> Genres { get; init; } = new();
+    public List<GenreEntity> Genres { get; set; } = new();
 
 }
