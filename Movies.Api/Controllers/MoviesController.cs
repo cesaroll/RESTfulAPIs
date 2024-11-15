@@ -1,6 +1,6 @@
-using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Api.Auth;
 using Movies.Api.Mappers;
 using Movies.App.Services;
 using Movies.Contracts.Requests;
@@ -18,6 +18,7 @@ public class MoviesController : ControllerBase
         _moviesService = moviesService;
     }
 
+  [Authorize(AuthConstants.TrustedMemberPolicyName)]
   [HttpPost(ApiEndpoints.Movies.Create)]
   public async Task<IActionResult> Create(
     [FromBody] CreateMovieRequest request,
@@ -34,6 +35,7 @@ public class MoviesController : ControllerBase
     );
   }
 
+  [Authorize(AuthConstants.TrustedMemberPolicyName)]
   [HttpPut(ApiEndpoints.Movies.Update)]
   public async Task<IActionResult> Update(
     [FromRoute] Guid id, 
@@ -84,6 +86,7 @@ public class MoviesController : ControllerBase
     );
   }
 
+  [Authorize(AuthConstants.AdminUserPolicyName)]
   [HttpDelete(ApiEndpoints.Movies.Delete)]
   public async Task<IActionResult> Delete(
     [FromRoute]Guid id,

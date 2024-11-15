@@ -1,0 +1,21 @@
+### Create a Movie with Authorization
+POST http://localhost:5149/api/movies
+Accept: */*
+Authorization: bearer xxx
+Content-Type: application/json
+
+{
+  "title": "Gladiador",
+  "yearOfRelease": 2006,
+  "genres": [
+    "War"
+  ]
+}
+
+# {
+#   "title": "Titanic",
+#   "yearOfRelease": 1999,
+#   "genres": [
+#     "Love"
+#   ]
+# }

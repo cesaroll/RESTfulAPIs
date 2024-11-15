@@ -1,5 +1,3 @@
-using System;
-
 namespace Movies.Api;
 
 public static class ApiEndpoints

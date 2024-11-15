@@ -1,0 +1,22 @@
+### Create a Movie with Authorization
+PUT http://localhost:5149/api/movies/4ab15bcd-fa2a-4328-b57d-65da7bbbc70c
+Accept: */*
+Authorization: bearer xxx
+Content-Type: application/json
+
+{
+  "title": "Gladiador",
+  "yearOfRelease": 2000,
+  "genres": [
+    "War", "Blood"
+  ]
+}
+
+# {
+#   "title": "Titanic",
+#   "yearOfRelease": 1997,
+#   "genres": [
+#     "Love", "Cheat"
+#   ]
+# }
+

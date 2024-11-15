@@ -1,0 +1,14 @@
+### Create Token
+
+POST http://localhost:8081/token
+Accept: */*
+Content-Type: application/json
+
+{
+  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "email": "cesarl@x.com",
+  "customClaims": {
+    "admin": true,
+    "trusted_member": true
+  }
+}

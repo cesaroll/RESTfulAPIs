@@ -1,0 +1,4 @@
+### Get Movies
+GET http://localhost:5149/api/movies/gladiador-2006
+Accept: */*
+Content-Type: application/json

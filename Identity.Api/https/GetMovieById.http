@@ -1,0 +1,4 @@
+### Get Movies
+GET http://localhost:5149/api/movies/4ab15bcd-fa2a-4328-b57d-65da7bbbc70c
+Accept: */*
+Content-Type: application/json

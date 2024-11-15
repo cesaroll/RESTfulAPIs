@@ -1,0 +1,6 @@
+### Create a Movie with Authorization
+DELETE http://localhost:5149/api/movies/9519cfa9-6ea7-4413-b8ce-48f9ddabe5e4
+Accept: */*
+Authorization: bearer xxx
+Content-Type: application/json
+
