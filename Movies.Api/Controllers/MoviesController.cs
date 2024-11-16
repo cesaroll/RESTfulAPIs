@@ -12,11 +12,15 @@ namespace Movies.Api.Controllers;
 public class MoviesController : ControllerBase
 {
   private readonly IMoviesService _moviesService; 
+  private readonly AuthContext _authContext;
+  private readonly ILogger<MoviesController> _logger;
 
-    public MoviesController(IMoviesService moviesService)
-    {
-        _moviesService = moviesService;
-    }
+  public MoviesController(IMoviesService moviesService, AuthContext authContext, ILogger<MoviesController> logger)
+  {
+      _moviesService = moviesService;
+      _authContext = authContext;
+      _logger = logger;
+  }
 
   [Authorize(AuthConstants.TrustedMemberPolicyName)]
   [HttpPost(ApiEndpoints.Movies.Create)]
@@ -45,7 +49,7 @@ public class MoviesController : ControllerBase
   {
     var movie = request.MapToMovie(id);
 
-    var result = await _moviesService.UpdateAsync(movie, token);
+    var result = await _moviesService.UpdateAsync(movie, _authContext.UserId, token);
 
     return result.Match<IActionResult>(
       success => success? Ok(movie.MapToMovieResponse()) : NotFound(),
@@ -61,8 +65,8 @@ public class MoviesController : ControllerBase
   )
   {
     var result = Guid.TryParse(idOrSlug, out var id)
-      ? await _moviesService.GetByIdAsync(id, token)
-      : await _moviesService.GetBySlugAsync(idOrSlug, token);
+      ? await _moviesService.GetByIdAsync(id, _authContext.UserId, token)
+      : await _moviesService.GetBySlugAsync(idOrSlug, _authContext.UserId, token);
 
     return result.Match<IActionResult>(
       movie => movie.Match<IActionResult>(
@@ -78,7 +82,7 @@ public class MoviesController : ControllerBase
   [HttpGet(ApiEndpoints.Movies.GetAll)]
   public async Task<IActionResult> GetAll(CancellationToken token)
   {
-    var result = await _moviesService.GetAllAsync(token);
+    var result = await _moviesService.GetAllAsync(_authContext.UserId, token);
 
     return result.Match<IActionResult>(
       moviesList => Ok(moviesList.Movies.MapToMoviesResponse()),

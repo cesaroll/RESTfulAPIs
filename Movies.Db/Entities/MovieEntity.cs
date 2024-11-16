@@ -24,4 +24,6 @@ public class MovieEntity
     [Required]
     public List<GenreEntity> Genres { get; set; } = new();
 
+    public List<RatingEntity> Ratings { get; set; } = new();
+
 }

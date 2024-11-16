@@ -34,7 +34,9 @@ public static class MovieMapper
     Title = movie.Title,
     Slug = movie.Slug,
     YearOfRelease = movie.YearOfRelease,
-    Genres = movie.Genres.Select(x => x.Name)
+    Genres = movie.Genres.Select(x => x.Name),
+    Rating = movie.Rating,
+    UserRating = movie.UserRating
   };
 
   public static MoviesResponse MapToMoviesResponse(this IEnumerable<Movie> movies) => new()

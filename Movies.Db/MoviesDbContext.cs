@@ -11,6 +11,7 @@ public class MoviesDbContext : DbContext
 
   public DbSet<MovieEntity> Movies { get; set; }
   public DbSet<GenreEntity> Genres { get; set; }
+  public DbSet<RatingEntity> Ratings { get; set; }
 
   override protected void OnModelCreating(ModelBuilder modelBuilder)
   {
@@ -20,7 +21,14 @@ public class MoviesDbContext : DbContext
     modelBuilder.Entity<GenreEntity>()
       .HasOne(e => e.Movie)
       .WithMany(e => e.Genres)
-      .HasForeignKey(e => e.MovieId)
-      .OnDelete(DeleteBehavior.Cascade);
+      .HasForeignKey(e => e.MovieId);
+
+    modelBuilder.Entity<RatingEntity>()
+      .HasKey(e => new { e.UserId, e.MovieId });
+
+    modelBuilder.Entity<RatingEntity>()
+      .HasOne(e => e.Movie)
+      .WithMany(e => e.Ratings)
+      .HasForeignKey(e => e.MovieId);
   }
 }

@@ -4,18 +4,18 @@ Accept: */*
 Authorization: bearer xxx
 Content-Type: application/json
 
-{
-  "title": "Gladiador",
-  "yearOfRelease": 2006,
-  "genres": [
-    "War"
-  ]
-}
-
 # {
-#   "title": "Titanic",
-#   "yearOfRelease": 1999,
+#   "title": "Gladiador",
+#   "yearOfRelease": 2006,
 #   "genres": [
-#     "Love"
+#     "War"
 #   ]
 # }
+
+{
+  "title": "Titanic",
+  "yearOfRelease": 1999,
+  "genres": [
+    "Love"
+  ]
+}

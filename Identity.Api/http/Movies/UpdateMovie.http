@@ -1,5 +1,5 @@
 ### Create a Movie with Authorization
-PUT http://localhost:5149/api/movies/4ab15bcd-fa2a-4328-b57d-65da7bbbc70c
+PUT http://localhost:5149/api/movies/b17fda4a-8255-4561-b6ef-6a8638edc6f7
 Accept: */*
 Authorization: bearer xxx
 Content-Type: application/json
