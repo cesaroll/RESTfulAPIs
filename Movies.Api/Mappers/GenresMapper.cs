@@ -1,4 +1,3 @@
-using System;
 using Movies.App.Models;
 
 namespace Movies.Api.Mappers;
