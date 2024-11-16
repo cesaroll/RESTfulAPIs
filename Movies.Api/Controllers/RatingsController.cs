@@ -38,4 +38,21 @@ public class RatingsController : ControllerBase
             error => BadRequest(error)
         );
     }
+
+    [Authorize]
+    [HttpDelete(ApiEndpoints.Movies.DeleteRating)]
+    public async Task<IActionResult> DeleteRating(
+        [FromRoute] Guid id,
+        CancellationToken token
+    )
+    {
+        Guid userId = _authContext.UserId!.Value;
+
+        var result = await _movieRatingsService.DeleteRatingAsync(id, userId, token);
+
+        return result.Match<IActionResult>(
+            success => success ? Ok() : NotFound(),
+            error => BadRequest(error)
+        );
+    }
 }
