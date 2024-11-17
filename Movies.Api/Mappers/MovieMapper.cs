@@ -48,7 +48,13 @@ public static class MovieMapper
     new()
     {
       Title = request.Title,
-      Year = request.Year
+      Year = request.Year,
+      SortField = request.SortBy?.Trim('+', '-'),
+      SortOrder = request.SortBy is null 
+        ? SortOrder.Unsorted
+        : request.SortBy.StartsWith('-') || request.SortBy.EndsWith('-')
+          ? SortOrder.Descending 
+          : SortOrder.Ascending 
     };
   
   public static GetAllMoviesOptions WithUserId(this GetAllMoviesOptions options, Guid? userId)
