@@ -42,5 +42,18 @@ public static class MovieMapper
   public static MoviesResponse MapToMoviesResponse(this IEnumerable<Movie> movies) => new()
   {
     Items = movies.Select(movie => movie.MapToMovieResponse())
-  };   
+  };
+
+  public static GetAllMoviesOptions MapToOptions(this GetAllMoviesRequest request) =>
+    new()
+    {
+      Title = request.Title,
+      Year = request.Year
+    };
+  
+  public static GetAllMoviesOptions WithUserId(this GetAllMoviesOptions options, Guid? userId)
+  {
+    options.UserId = userId;
+    return options;
+  }
 }
