@@ -39,9 +39,12 @@ public static class MovieMapper
     UserRating = movie.UserRating
   };
 
-  public static MoviesResponse MapToMoviesResponse(this IEnumerable<Movie> movies) => new()
+  public static MoviesResponse MapToMoviesResponse(this MoviesList movies) => new()
   {
-    Items = movies.Select(movie => movie.MapToMovieResponse())
+    Items = movies.Movies.Select(movie => movie.MapToMovieResponse()),
+    Page = movies.Page,
+    PageSize = movies.PageSize,
+    Total = movies.TotalCount
   };
 
   public static GetAllMoviesOptions MapToOptions(this GetAllMoviesRequest request) =>
@@ -54,7 +57,9 @@ public static class MovieMapper
         ? SortOrder.Unsorted
         : request.SortBy.StartsWith('-') || request.SortBy.EndsWith('-')
           ? SortOrder.Descending 
-          : SortOrder.Ascending 
+          : SortOrder.Ascending,
+      Page = request.Page,
+      PageSize = request.PageSize
     };
   
   public static GetAllMoviesOptions WithUserId(this GetAllMoviesOptions options, Guid? userId)

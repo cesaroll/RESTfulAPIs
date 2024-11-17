@@ -90,7 +90,7 @@ public class MoviesController : ControllerBase
     var result = await _moviesService.GetAllAsync(options, token);
 
     return result.Match<IActionResult>(
-      moviesList => Ok(moviesList.Movies.MapToMoviesResponse()),
+      moviesList => Ok(moviesList.MapToMoviesResponse()),
       error => BadRequest(error)
     );
   }

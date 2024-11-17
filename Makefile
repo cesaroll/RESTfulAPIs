@@ -28,3 +28,6 @@ update:
 
 # Connect to local Db
 # psql -U app -h localhost -p 5432 -d movies
+
+create-movies:
+	./scripts/createMovies.sh

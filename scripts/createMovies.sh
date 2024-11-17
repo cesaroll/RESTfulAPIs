@@ -37,10 +37,25 @@ API_URL="http://localhost:5149/api/movies"
 # Array of movie payloads
 movies=(
   '{"title":"The Shawshank Redemption","yearOfRelease":1994,"genres":["Drama","Crime"]}'
-  # '{"title":"The Godfather","yearOfRelease":1972,"genres":["Drama","Crime"]}'
+  '{"title":"The Godfather","yearOfRelease":1972,"genres":["Drama","Crime"]}'
   '{"title":"The Dark Knight","yearOfRelease":2008,"genres":["Action","Drama","Crime"]}'
   '{"title":"Pulp Fiction","yearOfRelease":1994,"genres":["Drama","Crime"]}'
   '{"title":"Forrest Gump","yearOfRelease":1994,"genres":["Drama","Romance"]}'
+  '{"title":"The Lord of the Rings: The Fellowship of the Ring","yearOfRelease":2001,"genres":["Adventure","Drama","Fantasy"]}'
+  '{"title":"The Silence of the Lambs","yearOfRelease":1991,"genres":["Crime","Drama","Thriller"]}'
+  '{"title":"Saving Private Ryan","yearOfRelease":1998,"genres":["Drama","War"]}'
+  '{"title":"The Green Mile","yearOfRelease":1999,"genres":["Crime","Drama","Fantasy"]}'
+  '{"title":"Fight Club","yearOfRelease":1999,"genres":["Drama"]}'
+  '{"title":"The Avengers","yearOfRelease":2012,"genres":["Action","Adventure","Sci-Fi"]}'
+  '{"title":"Braveheart","yearOfRelease":1995,"genres":["Biography","Drama","History"]}'
+  '{"title":"Django Unchained","yearOfRelease":2012,"genres":["Drama","Western"]}'
+  '{"title":"Titanic","yearOfRelease":1997,"genres":["Drama","Romance"]}'
+  '{"title":"Avatar","yearOfRelease":2009,"genres":["Action","Adventure","Sci-Fi"]}'
+  '{"title":"Inception","yearOfRelease":2010,"genres":["Action","Sci-Fi","Thriller"]}'
+  '{"title":"The Matrix","yearOfRelease":1999,"genres":["Action","Sci-Fi"]}'
+  '{"title":"Interstellar","yearOfRelease":2014,"genres":["Adventure","Drama","Sci-Fi"]}'
+  '{"title":"Gladiator","yearOfRelease":2000,"genres":["Action","Adventure","Drama"]}'
+  '{"title":"Schindlers List","yearOfRelease":1993,"genres":["Biography","Drama","History"]}'
 )
 
 # Loop through movies and add each one
