@@ -2,6 +2,7 @@ using Movies.App.Extensions;
 using Movies.Db.Extensions;
 using Movies.Api.Middleware;
 using Movies.Api.Extensions;
+using Movies.Api.Health;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -9,6 +10,8 @@ var config = builder.Configuration;
 builder.Services.AddAuth(config);
 
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks()
+    .AddCheck<DatabaseHealthCheck>(DatabaseHealthCheck.Name);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -30,6 +33,7 @@ var app = builder.Build();
     app.UseSwaggerUI();
 // }
 
+app.MapHealthChecks("_health");
 app.UseHttpsRedirection();
 
 app.UseRouting();
