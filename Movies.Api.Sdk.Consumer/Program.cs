@@ -27,12 +27,39 @@ var provider = services.BuildServiceProvider();
 var moviesApi = provider.GetRequiredService<IMoviesApi>();
 
 
-Console.WriteLine("\nReading Movie:\n");
-var movie = await moviesApi.GetMoviesAsync("f7f5bde4-5d02-4c5e-85d8-e2adadb4bbc5", default);
+Console.WriteLine("\nCreating Movie:\n");
+var movie = await moviesApi.CreateMovieAsync(new CreateMovieRequest
+{
+    Title = "Spiderman",
+    YearOfRelease = 2002,
+    Genres = new[] { "Action" }
+});
 
 Console.WriteLine(JsonSerializer.Serialize(movie, new JsonSerializerOptions{
     WriteIndented = true
 }));
+
+Console.WriteLine("\nUpdating Movie:\n");
+movie = await moviesApi.UpdateMovieAsync(movie.Id, new UpdateMovieRequest
+    {
+        Title = movie.Title,
+        YearOfRelease = 2003,
+        Genres = new[] { "Action", "Adventure"}
+    });
+Console.WriteLine(JsonSerializer.Serialize(movie, new JsonSerializerOptions{
+    WriteIndented = true
+}));
+
+Console.WriteLine("\nReading Movie:\n");
+movie = await moviesApi.GetMovieAsync(movie.Id.ToString());
+
+Console.WriteLine(JsonSerializer.Serialize(movie, new JsonSerializerOptions{
+    WriteIndented = true
+}));
+
+
+Console.WriteLine("\nDeleting movie:\n");
+await moviesApi.DeleteMovieAsync(movie.Id);
 
 
 Console.WriteLine("\nGet All Movies:\n");
@@ -42,7 +69,7 @@ var request = new GetAllMoviesRequest
     PageSize = 10
 };
 
-var movies = await moviesApi.GetAllMoviesAsync(request, default);
+var movies = await moviesApi.GetAllMoviesAsync(request);
 
 Console.WriteLine(JsonSerializer.Serialize(movies, new JsonSerializerOptions{
     WriteIndented = true
