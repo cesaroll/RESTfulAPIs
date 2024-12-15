@@ -10,10 +10,13 @@ db:
 run:
 	dotnet run --project Movies.Api/Movies.Api.csproj
 
+consumer:
+	make up; dotnet run --project Movies.Api.Sdk.Consumer/Movies.Api.Sdk.Consumer.csproj
+
 # Migrations in Local DB
 
 # Define constants
-CONN_STR := "Server=localhost;Port=5432;Database=movies;User Id=app;Password=Password123;" 
+CONN_STR := "Server=localhost;Port=5432;Database=movies;User Id=app;Password=Password123;"
 
 # Create migration
 # usage: make migrate MIGRATION_NAME=CreateMoviesAndGenre

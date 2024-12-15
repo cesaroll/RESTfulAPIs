@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'Retrieving JWT'
+
 # URL and payload
 API_TOKEN_URL="http://localhost:8081/token"
 PAYLOAD='{
@@ -30,6 +32,8 @@ if [[ -z "$JWT" || "$JWT" == "null" ]]; then
   echo "Error: Failed to retrieve token. Response: $response"
   exit 1
 fi
+
+echo 'Creating Movies'
 
 # API Base URL
 API_URL="http://localhost:5149/api/movies"
