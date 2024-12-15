@@ -4,6 +4,7 @@ using Refit;
 
 namespace Movies.Api.Sdk;
 
+[Headers("Authorization: Bearer")]
 public interface IMoviesApi
 {
     [Get(ApiEndpoints.V2.Movies.Get)]
