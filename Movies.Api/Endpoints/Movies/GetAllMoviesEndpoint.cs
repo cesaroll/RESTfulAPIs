@@ -11,7 +11,7 @@ public static class GetAllMoviesEndpoint
 
     public static IEndpointRouteBuilder MapGetAllMovies(this IEndpointRouteBuilder app)
     {
-        app.MapPost(ApiEndpoints.V1.Movies.GetAll, async (
+        app.MapGet(ApiEndpoints.V1.Movies.GetAll, async (
             [AsParameters] GetAllMoviesRequest request,
             AuthContext authContext,
             IMoviesService moviesService,
