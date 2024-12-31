@@ -1,9 +1,6 @@
-using LanguageExt.Common;
-using Microsoft.AspNetCore.Mvc;
 using Movies.Api.Auth;
 using Movies.Api.Mappers;
 using Movies.App.Services;
-using Movies.Contracts.Responses;
 
 namespace Movies.Api.Endpoints.Movies;
 
@@ -24,20 +21,19 @@ public static class GetMovieEndpoint
                 ? await moviesService.GetByIdAsync(id, authContext.UserId, token)
                 : await moviesService.GetBySlugAsync(idOrSlug, authContext.UserId, token);
 
-                return result.Match<IResult>(
-                one => one.Match<IResult>(
-                    movie => {
-                        var response = movie.MapToMovieResponse();
-
-                        return TypedResults.Ok(response);
-                    },
-                    Results.NotFound()
-                    )
-                ,
-                error => TypedResults.BadRequest(error)
-                );
-
-            });
+            return result.Match<IResult>(
+            one => one.Match<IResult>(
+                movie => {
+                    var response = movie.MapToMovieResponse();
+                    return TypedResults.Ok(response);
+                },
+                Results.NotFound()
+                )
+            ,
+            error => TypedResults.BadRequest(error)
+            );
+        })
+        .WithName(Name);
 
         return app;
     }
