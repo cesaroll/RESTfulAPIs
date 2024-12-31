@@ -3,13 +3,14 @@ using Movies.Db.Extensions;
 using Movies.Api.Middleware;
 using Movies.Api.Extensions;
 using Movies.Api.Health;
+using Movies.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
 builder.Services.AddAuth(config);
 
-builder.Services.AddControllers();
+// builder.Services.AddControllers();
 builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>(DatabaseHealthCheck.Name);
 
@@ -45,9 +46,10 @@ await app.Services.InitializeDbAsync();
 
 app.UseMiddleware<AuthMiddleware>();
 
-app.UseEndpoints(endpoints =>
-{
-    _ = endpoints.MapControllers();
-});
+// app.UseEndpoints(endpoints =>
+// {
+//     _ = endpoints.MapControllers();
+// });
+app.MapApiEndpoints();
 
 app.Run();
