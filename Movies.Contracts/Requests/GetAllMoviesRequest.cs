@@ -2,7 +2,7 @@ using System;
 
 namespace Movies.Contracts.Requests;
 
-public class GetAllMoviesRequest : PagedRequests
+public class GetAllMoviesRequest : PagedRequest
 {
   public string? Title { get; set; }
   public int? Year { get; set; }
